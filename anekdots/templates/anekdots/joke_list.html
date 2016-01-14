@@ -1,0 +1,34 @@
+{% extends 'anekdots/base.html' %}
+
+{% block nav %}
+    {% for cat in category_list %}
+        <li class="{% if forloop.counter == category.id %}active{% endif %} item-{{ cat.id }}">
+            <a href="{% url 'anekdots:category' cat.id %}">{{ cat.title }}</a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    {% for joke in joke_list %}
+        <div class="row bg-success">
+            <div class="col-md-3">
+                <small><a name="{{ joke.id }}">#</a></small> <strong>Категория:</strong> <a href="{% url 'anekdots:category' joke.category.id %}"> {{ joke.category }}</a>
+            </div>
+            <div class="col-md-4">
+                <strong>Опубликован:</strong> {{ joke.pub_date }}
+            </div>
+            <div class="col-md-3">
+                <strong>Оценка:</strong> {{ joke.get_grade|floatformat }}
+            </div>
+            <div class="col-md-2">
+                <strong>Оценить:</strong>
+                <a href="{% url 'anekdots:vote' joke.id 1 %}">1</a>
+                <a href="{% url 'anekdots:vote' joke.id 2 %}">2</a>
+                <a href="{% url 'anekdots:vote' joke.id 3 %}">3</a>
+                <a href="{% url 'anekdots:vote' joke.id 4 %}">4</a>
+                <a href="{% url 'anekdots:vote' joke.id 5 %}">5</a>
+            </div>
+        </div>
+        <p>{{ joke.text|linebreaksbr }}</p>
+    {% endfor %}
+{% endblock %}
