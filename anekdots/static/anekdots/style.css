@@ -1,0 +1,11 @@
+body {
+    background: url("img/bg.gif");
+}
+.content {
+    background: white;
+    box-shadow: 0 0 30px black;
+    margin-bottom: 40px;
+}
+a[name]{
+    cursor: pointer;
+}
